@@ -38,8 +38,12 @@ const ChatContainer = () => {
             judge: {
               solution_1_score: judge.solution_1_score,
               solution_2_score: judge.solution_2_score,
+              solution_1_feedback:
+                judge.solution_1_feedback ?? judge.solution_1_FeedBack ?? '',
+              solution_2_feedback:
+                judge.solution_2_feedback ?? judge.solution_2_FeedBack ?? '',
               both_solution_feedback:
-                judge.solution_FeedBack ?? judge.both_solution_feedback ?? '',
+                judge.both_solution_feedback ?? judge.solution_FeedBack ?? '',
             },
           },
         },

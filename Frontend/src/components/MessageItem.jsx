@@ -48,6 +48,13 @@ const MessageItem = ({ message }) => {
   }
 
   const { data } = message;
+  const judge = data?.judge ?? {};
+  const solution1Feedback =
+    judge.solution_1_feedback || judge.solution_1_FeedBack;
+  const solution2Feedback =
+    judge.solution_2_feedback || judge.solution_2_FeedBack;
+  const combinedFeedback =
+    judge.both_solution_feedback || judge.solution_FeedBack;
 
   return (
     <div className="flex items-start gap-4 group animate-in fade-in slide-in-from-left-4 duration-500">
@@ -104,9 +111,32 @@ const MessageItem = ({ message }) => {
               
               <div className="flex-1 bg-slate-900/60 rounded-xl p-5 text-slate-300 border border-slate-800/80 text-[15px] leading-relaxed relative w-full group-hover/judge:border-indigo-500/20 transition-colors">
                 <div className="absolute top-6 left-0 -ml-1.5 w-3 h-3 bg-slate-900 border-l border-b border-slate-800/80 rotate-45 hidden md:block group-hover/judge:border-indigo-500/20 transition-colors"></div>
-                <div className="flex gap-3">
-                  <ThumbsUp size={18} className="shrink-0 text-indigo-400 mt-0.5" />
-                  <p>{data.judge.both_solution_feedback}</p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {solution1Feedback || solution2Feedback ? (
+                    <>
+                      <div className="flex gap-3">
+                        <ThumbsUp size={18} className="shrink-0 text-indigo-400 mt-0.5" />
+                        <p>
+                          <span className="font-semibold text-slate-200">Solution 1 feedback: </span>
+                          {solution1Feedback || 'No feedback was provided.'}
+                        </p>
+                      </div>
+                      <div className="flex gap-3">
+                        <ThumbsUp size={18} className="shrink-0 text-purple-400 mt-0.5" />
+                        <p>
+                          <span className="font-semibold text-slate-200">Solution 2 feedback: </span>
+                          {solution2Feedback || 'No feedback was provided.'}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex gap-3 sm:col-span-2">
+                      <ThumbsUp size={18} className="shrink-0 text-indigo-400 mt-0.5" />
+                      <p>
+                        {combinedFeedback || 'The judge did not return feedback.'}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
